@@ -36,6 +36,9 @@ void MessageQueue<T>::send(T &&msg)
     // lock the mutex
     std::lock_guard<std::mutex> glock(_mutex);
 
+    // clear the queue of any old changes
+    _queue.clear();
+
     // add the msg to the front of the queue
     _queue.push_front(msg);
 
@@ -92,8 +95,8 @@ void TrafficLight::cycleThroughPhases()
     // to the message queue using move semantics. The cycle duration should be a random value between 4 and 6 seconds. 
     // Also, the while-loop should use std::this_thread::sleep_for to wait 1ms between two cycles. 
 
-    // compute the random delay between 4 and 6 milliseconds for this traffic light
-    int cycleTimeMs = ((rand() % 3) + 4) * 1000;
+    // compute the random delay between 4 and 6 seconds for this traffic light
+    int cycleTimeMs = ((rand() % 3000) + 4000);
 
     while (true) {
         // get the current time
