@@ -20,8 +20,8 @@ T MessageQueue<T>::receive()
     // get the msg object from the back of the queue using move semantics
     T obj = std::move(_queue.back());
 
-    // remove the last object in the queue now that we have the reference
-    _queue.pop_back();
+    // clear the queue now that we have the reference
+    _queue.clear();
 
     // return the object (will use move semantics)
     return obj;
